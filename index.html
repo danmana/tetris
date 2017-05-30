@@ -12,15 +12,18 @@
 <div id="display"></div>
 <script src="tetris.js"></script>
 <script>
-    var t = new Tetris('IJLOSTZIJLOSTZIJLOSTZIJLOSTZ');
-    t.makeMove(3, 0);
-    t.makeMove(3, 0);
-    t.makeMove(3, 0);
-    t.makeMove(3, 0);
-    t.makeMove(7, 0);
-    t.makeMove(7, 0);
+    var t = new Tetris('IJLOSTZIJLOSTZIJLOSTZIJLOSTZIJLOSTZIJLOSTZIJLOSTZIJLOSTZ');
     var display = document.getElementById('display');
-    display.innerHTML = t.toHtml();
+
+    var autoplay = setInterval(function () {
+        t.makeMove(Math.floor(Math.random() * 7), Math.floor(Math.random() * 3));
+        display.innerHTML = t.toHtml();
+        if (t.won || t.lost) {
+            clearInterval(autoplay);
+        }
+
+    }, 500);
+
 </script>
 </body>
 </html>
