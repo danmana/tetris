@@ -1,13 +1,17 @@
 .tetris {
-    font-size: 0;
+
 }
 
 .tetris h1 {
     font-size: 20pt;
 }
 
-.tetris-row {
+.tetris h2 {
+    font-size: 16pt;
+}
 
+.tetris-row {
+    font-size: 0;
 }
 
 .tetris-cell {
