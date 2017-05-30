@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tetris</title>
+  <link rel="stylesheet" href="tetris.css">
+</head>
+<body>
+<h1>Tetris</h1>
+<textarea id="pieces"></textarea>
+<textarea id="moves"></textarea>
+<button id="go" onclick="go()">Go</button>
+<div id="display"></div>
+<script src="tetris.js"></script>
+<script>
+      var t = new Tetris('ILSZ');
+      t.makeMove(3,0);
+      t.makeMove(3,0);
+      t.makeMove(3,0);
+      t.makeMove(3,0);
+      var display = document.getElementById('display');
+      display.innerHTML = t.toHtml();
+</script>
+</body>
+</html>
