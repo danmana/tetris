@@ -1,0 +1,22 @@
+{
+  "name": "tetris",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tetris-eval.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danmana/tetris.git"
+  },
+  "author": "Dan Manastireanu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danmana/tetris/issues"
+  },
+  "homepage": "https://github.com/danmana/tetris#readme",
+  "dependencies": {
+    "commander": "^2.9.0"
+  }
+}
