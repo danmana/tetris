@@ -1,4 +1,4 @@
-(function () {
+(function() {
     //Block shapes
     var SHAPES = {
         I: [[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
@@ -49,7 +49,7 @@
     }
 
 
-    Tetris.prototype.clone = function () {
+    Tetris.prototype.clone = function() {
         var clone = new Tetris();
 
         clone.grid = clone(this.grid);
@@ -61,16 +61,18 @@
         clone.won = this.won;
     };
 
-    Tetris.prototype.toHtml = function () {
+    Tetris.prototype.toHtml = function() {
         var html = '<div class="tetris">', i, j;
 
-        html += '<h1>Score: ' + this.score + '</h1>';
+        html += '<h1>Score: ' + this.score;
 
         if (this.lost) {
-            html += '<h2>LOST!</h2>';
+            html += '<span class="lost">LOST!</span>';
         } else if (this.won) {
-            html += '<h2>WON!</h2>';
+            html += '<span class="won">WON!</span>';
         }
+
+        html += '</h1>';
 
         for (i = 0; i < GRID_H; i++) {
             html += '<div class="tetris-row">';
@@ -86,7 +88,7 @@
     };
 
 
-    Tetris.prototype.makeMove = function (x, rot) {
+    Tetris.prototype.makeMove = function(x, rot) {
         var shape = clone(SHAPES[this.nextShapes[this.shapeIndex]]), i;
 
         shape = rotate(shape, rot);
@@ -220,8 +222,8 @@
 
 //flip row x column to column x row
     function transpose(array) {
-        return array[0].map(function (col, i) {
-            return array.map(function (row) {
+        return array[0].map(function(col, i) {
+            return array.map(function(row) {
                 return row[i];
             });
         });
