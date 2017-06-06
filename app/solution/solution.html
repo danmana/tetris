@@ -1,0 +1,48 @@
+<div>
+	<navbar></navbar>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2>Here's where we upload a new solution</h2>
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				 <form name="solution" class="form-horizontal">
+				 	 <fieldset>
+          		<div class="form-group">
+                <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+            		<div class="col-lg-10">
+              		  <input class="form-control" id="inputEmail" placeholder="Email" type="text" ng-model="contestantEmail" required/>
+            		</div>
+          		</div>
+          		<div class="form-group">
+          		  <label class="col-lg-2 control-label">Results CSV</label>
+          		  <div class="col-lg-10">
+          			  <input type="file" ngf-select ng-model="responsesFile" name="responsesFile" accept="text/csv" required ngf-model-invalid="errorFile"/>
+          			  <div class="progress" ng-show="responsesFile">
+        				    <div class="progress-bar progress-bar-success"  ng-bind="responsesFile.progress + '%'" style="width: {{responsesFile.progress}}%"></div>
+        			    </div>
+          		  </div>
+          		</div>
+          		<div class="form-group">
+          		  <label class="col-lg-2 control-label">Solution description</label>
+          		  <div class="col-lg-10">
+          			 <input type="file" ngf-select ng-model="solutionFile" name="solutionFile"/>
+                 <div class="progress" ng-show="solutionFile">
+                    <div class="progress-bar progress-bar-info"  ng-bind="solutionFile.progress + '%'" style="width: {{solutionFile.progress}}%"></div>
+                  </div>
+          		  </div>
+          		</div>
+          		<div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="submit" class="btn btn-primary" ng-disabled="!solution.$valid" ng-click="uploadSolution(responsesFile, solutionFile)">Submit</button>
+            	  </div>
+          		</div>
+          	  </fieldset>
+          </form>
+			</div>
+		</div>
+	</div>
+</div>
