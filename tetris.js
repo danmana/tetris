@@ -229,8 +229,6 @@
         });
     }
 
-    console.log("I'm getting here");
-
     if (typeof module !== 'undefined' && typeof module.exports !== 'undefined')
         module.exports = Tetris;
     else 

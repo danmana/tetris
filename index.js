@@ -71,7 +71,6 @@ if (!fs.existsSync(scoreFile)) fs.writeFileSync(scoreFile, "{}");
 /* Results storage & evaluator */
 app.post('/upload-results', upload.single('results'), function (req, res, next) {
 
-	console.log(req.file.destination + "/" + req.file.filename);
 	var username = req.body.username;
 	var scores = JSON.parse(fs.readFileSync(scoreFile).toString());
 	var existings = scores[username] || [];
@@ -80,7 +79,6 @@ app.post('/upload-results', upload.single('results'), function (req, res, next) 
 	fs.createReadStream(req.file.destination + "/" + req.file.filename)
   	  .pipe(csv())
       .on('data', function (data) {
-    	console.log(JSON.stringify(data));
     	score = score + tetris.getScore(data.game, tetris.moveParser(data.moves));
   	  })
   	  .on('end', function () {
