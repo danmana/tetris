@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tetris.challengers', ['ngRoute'])
+angular.module('tetrisbot.challengers', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/challengers', {
@@ -16,7 +16,6 @@ angular.module('tetris.challengers', ['ngRoute'])
 		$http.post('/top-challengers', {}, {})
 		     .then(
 		     	function(response){
-		     		console.log(response.data);
 		     		$scope.challengers = response.data;
 		     	}, 
 		     	function(error){

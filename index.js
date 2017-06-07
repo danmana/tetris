@@ -1,10 +1,11 @@
+/* App necesities */
 var express  = require('express');
 var app      = express();                   
 var morgan = require('morgan');            
 var bodyParser = require('body-parser');    
 var methodOverride = require('method-override'); 
 
-
+/* Disk storage necesities */
 var baseDir = "/home/osboxes/tmp";
 var scoreFile = baseDir + "/score.json";
 var mkdirp = require('mkdirp');
@@ -20,15 +21,18 @@ var storage = multer.diskStorage({
     cb(null, filename);
   }
 });
-
 var upload = multer({ storage: storage })
 
+/* CSV parsing necesities */
 var csv = require('csv-parser')
 var fs = require('fs')
 
+/* Tetris evaluator necesities */
 var tetris = require('./tetris-helper.js');
 
-app.use(express.static(__dirname + '/app'));                 
+/* App config */
+app.use(express.static(__dirname + '/app'));
+app.use(express.static(__dirname));                  
 app.use(morgan('dev'));                                        
 app.use(bodyParser.urlencoded({'extended':'true'}));           
 app.use(bodyParser.json());                                     
@@ -60,10 +64,11 @@ app.post('/top-challengers',  function(req, res) {
 	res.json(response);
 });
 
-
+/* Basic necesities for storing the data */
 mkdirp.sync(baseDir);
 if (!fs.existsSync(scoreFile)) fs.writeFileSync(scoreFile, "{}");
 
+/* Results storage & evaluator */
 app.post('/upload-results', upload.single('results'), function (req, res, next) {
 
 	console.log(req.file.destination + "/" + req.file.filename);
@@ -88,12 +93,9 @@ app.post('/upload-results', upload.single('results'), function (req, res, next) 
 });
 
 
-
 app.post('/upload-solution', upload.single('solution'), function (req, res, next) {
-	
 	res.sendStatus(201);
 });
-
 
 
 app.listen(8099);

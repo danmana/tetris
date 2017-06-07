@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tetris.simulator', ['ngRoute'])
+angular.module('tetrisbot.simulator', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/simulator', {

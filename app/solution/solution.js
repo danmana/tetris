@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tetris.solution', ['ngRoute', 'ngFileUpload'])
+angular.module('tetrisbot.solution', ['ngRoute', 'ngFileUpload'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/solution', {

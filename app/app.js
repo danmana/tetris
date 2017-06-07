@@ -1,13 +1,15 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('tetris', [
+angular.module('tetrisbot', [
   'ngRoute',
-  'tetris.challengers',
-  'tetris.solution',
-  'tetris.simulator'
+  'tetrisbot.navbar',
+  'tetrisbot.intro',
+  'tetrisbot.challengers',
+  'tetrisbot.solution',
+  'tetrisbot.simulator'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
-  $routeProvider.otherwise({redirectTo: '/challengers'});
+  $routeProvider.otherwise({redirectTo: '/intro'});
 }]);
