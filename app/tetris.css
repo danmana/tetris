@@ -43,3 +43,10 @@
 .tetris-cell-7 {
     background-color: #F8931D;
 }
+
+
+
+.shape-demo {
+    display: inline-block;
+    margin-right: 20px;
+}
