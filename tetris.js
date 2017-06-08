@@ -48,6 +48,9 @@
         this.won = false;
     }
 
+    Tetris.SHAPE_NAMES = 'IJLOSTZ';
+    Tetris.SHAPES = SHAPES;
+
 
     Tetris.prototype.clone = function() {
         var clone = new Tetris();

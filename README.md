@@ -19,3 +19,9 @@ For more help about the evaluator options run:
 ```
 node tetris-eval.js --help
 ```
+
+
+Generating random games:
+```
+node tetris-gen.js --out games.txt
+```

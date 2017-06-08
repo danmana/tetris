@@ -1,5 +1,6 @@
 var Tetris = require('./tetris.js');
 
+
 exports.getScore = function(pieces, moves) {
     var tetris = new Tetris(pieces);
     var i, move;
@@ -26,3 +27,33 @@ exports.moveParser = function(val) {
     }
     return moves;
 };
+
+exports.generateGame = function(pieces, length) {
+    var game = [];
+    var bag = [];
+
+    while (game.length < length) {
+        if (!bag.length) {
+            bag = permute(pieces.split(''));
+        }
+        game.push(bag.pop());
+    }
+
+    return game.join('');
+};
+
+function permute(input) {
+    var idx, swpIdx, tmp, perm;
+    // clone the array
+    perm = input.slice();
+
+    for (idx = 0; idx < perm.length; idx++) {
+        swpIdx = idx + Math.floor(Math.random() * (perm.length - idx));
+
+        // now swap elements at idx and swpIdx
+        tmp = perm[idx];
+        perm[idx] = perm[swpIdx];
+        perm[swpIdx] = tmp;
+    }
+    return perm;
+}
