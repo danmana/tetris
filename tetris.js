@@ -99,6 +99,10 @@
 
     shape = rotate(shape, rot);
 
+    // bound the X so the shape is in the grid
+    x = getBoundedX(shape, x);
+
+    // find where the shape drops
     var y = getDropLocation(this.grid, shape, x);
 
     if (isLoss(shape, y)) {
@@ -180,6 +184,33 @@
         }
       }
     }
+  }
+
+  function getShapePositionBounds(shape) {
+    var i, j;
+    var minX = GRID_W;
+    var maxX = 0;
+    for (i = 0; i < shape.length; i++) {
+      for (j = 0; j < shape[i].length; j++) {
+        if (shape[i][j]) {
+          minX = Math.min(minX, j);
+          maxX = Math.max(maxX, j);
+        }
+      }
+    }
+
+    return {min: -minX, max: GRID_W - 1 - maxX };
+  }
+
+  function getBoundedX(shape, x) {
+    var bounds = getShapePositionBounds(shape);
+    if (x < bounds.min) {
+      return bounds.min;
+    }
+    if (x > bounds.max) {
+      return bounds.max;
+    }
+    return x;
   }
 
   function collides(grid, shape, x, y) {
