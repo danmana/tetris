@@ -1,30 +1,20 @@
 /* App necesities */
 var express = require('express');
-var app = express();
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var errorhandler = require('errorhandler');
 
+var program = require('commander');
 
-var args = require('minimist')(process.argv.slice(2), {
-  alias: {
-    'p': 'port',
-    'd': 'dir',
-    'h': 'help'
-  }
-});
+program
+.usage('--port 80 --dir ../tmp')
+.option('-p, --port <n>', 'server port number (default 8099)')
+.option('-d, --dir <path>', 'directory where to store submissions (default ../tmp)')
+.parse(process.argv);
 
-var port = args.port || 8099;
-var baseDir = args.dir || "../tmp";
-
-if (args.h || args.help) {
-  console.log('usage: node index.js [-p 80] [-d ../tmp] [-h] \n\n' +
-  'Arguments:\n' +
-  '  -p, --port 8099         sets the server port\n' +
-  '  -d, --dir ../tmp        sets the directory where to store submissions\n' +
-  '  -h, --help              prints this help message');
-  return;
-}
+var port = program.port || 8099;
+var baseDir = program.dir || '../tmp';
 
 console.log('Using port', port);
 console.log('Using dir', baseDir);
@@ -53,9 +43,19 @@ var csv = require('csv-parser')
 var fs = require('fs')
 
 /* Tetris evaluator necesities */
-var tetris = require('./tetris-helper.js');
+var helper = require('./tetris-helper.js');
 
 /* App config */
+var app = express();
+
+// handle errors
+app.use(errorhandler());
+process.on('uncaughtException', function(err) {
+  // handle the error safely
+  console.error(err);
+});
+
+
 app.use(express.static(__dirname + '/app'));
 app.use(express.static(__dirname));
 app.use(morgan('dev'));
@@ -93,24 +93,74 @@ app.post('/top-challengers', function(req, res) {
 mkdirp.sync(baseDir);
 if (!fs.existsSync(scoreFile)) fs.writeFileSync(scoreFile, "{}");
 
+var games = helper.loadGames();
+
 /* Results storage & evaluator */
 app.post('/upload-results', upload.single('results'), function(req, res, next) {
 
   var username = req.body.username;
-  var scores = JSON.parse(fs.readFileSync(scoreFile).toString());
-  var existings = scores[username] || [];
 
+  var errors = [];
+  var warnings = [];
+  var alreadyScored = {};
   var score = 0;
-  fs.createReadStream(req.file.destination + "/" + req.file.filename)
+
+  var fileLocation = req.file.destination + "/" + req.file.filename;
+
+  fs.createReadStream(fileLocation)
   .pipe(csv())
   .on('data', function(data) {
-    score = score + tetris.getScore(data.game, tetris.moveParser(data.moves));
+    var gameId = Number(data.game);
+    // check if the game id is valid
+    if (isNaN(gameId) || gameId < 0 || gameId >= games.length) {
+      errors.push('Unknown game number: ' + data.game);
+      return;
+    }
+
+    // check if the game was already scored (duplicate rows are ignored to avoid cheating)
+    if (alreadyScored.hasOwnProperty(gameId)) {
+      warnings.push('Duplicate game number: ' + gameId);
+      return;
+    }
+    alreadyScored[gameId] = true;
+
+    var game = games[gameId];
+    try {
+      score += helper.getScore(game, helper.moveParser(data.moves));
+    } catch (e) {
+      console.error('Error scoring game ' + gameId + ' for user ' + username + ' in file ' + fileLocation, e);
+      errors.push('Error scoring game: ' + gameId);
+    }
   })
   .on('end', function() {
-    existings.push(score);
-    scores[username] = existings;
+    // save the score
+    // note: we should really make this atomic ...
+    var scores = JSON.parse(fs.readFileSync(scoreFile).toString());
+    var userScores = scores[username] || [];
+    var maxScoreBefore = Math.max.apply(null, userScores);
+    userScores.push(score);
+    scores[username] = userScores;
     fs.writeFileSync(scoreFile, JSON.stringify(scores));
-    res.send({score: score});
+
+    // make a final check to see if all the games were scored
+    var scoredGames = 0, g;
+    for (g in alreadyScored) {
+      if (alreadyScored.hasOwnProperty(g)) {
+        scoredGames++;
+      }
+    }
+    if (scoredGames !== games.length) {
+      warnings.push('Only ' + scoredGames + ' out of ' + games.length + ' games were scored.');
+    }
+
+
+    // send a response
+    res.send({
+      score: score,
+      maxScoreBefore: maxScoreBefore,
+      errors: errors,
+      warnings: warnings
+    });
   });
 
 });

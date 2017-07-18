@@ -9,7 +9,7 @@ angular.module('tetrisbot.solution', ['ngRoute', 'ngFileUpload'])
   });
 }])
 
-.controller('SolutionCtrl', ['$scope', '$timeout', '$location', 'Upload', function ($scope, $timeout, $location, Upload) {
+.controller('SolutionCtrl', ['$scope', '$timeout', '$location', 'Upload', 'ngDialog', function ($scope, $timeout, $location, Upload, ngDialog) {
 	$scope.uploadSolution = function(resultsFile, solutionFile) {
 		var username = $scope.contestantEmail.substr(0, $scope.contestantEmail.indexOf('@'));
 
@@ -22,8 +22,14 @@ angular.module('tetrisbot.solution', ['ngRoute', 'ngFileUpload'])
 	      function (response) {
 		      $timeout(function () {
 		        resultsFile.result = response.data;
-		        alert("On this solution you've scored: " + response.data.score + " points! \nCongratulations!");
-		        $location.path('/challengers');
+            var dialog = ngDialog.open({
+							template: 'solution/upload_result.html',
+							className: 'ngdialog-theme-default',
+							data: response.data
+            });
+            dialog.closePromise.then(function (data) {
+              $location.path('/challengers');
+            });
 		      });
 	    }, function (response) {
 		      if (response.status > 0)

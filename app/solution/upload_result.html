@@ -1,0 +1,27 @@
+<h1>Score: {{ngDialogData.score}}</h1>
+
+<p ng-if="ngDialogData.score > ngDialogData.maxScoreBefore" class="alert alert-success">
+  Congratulations, this is yor best score so far!
+</p>
+<p ng-if="ngDialogData.score <= ngDialogData.maxScoreBefore">
+  Your best score so far is {{ngDialogData.maxScoreBefore}}.
+</p>
+
+<div  ng-if="ngDialogData.errors.length" class="alert alert-danger">
+  <h4>Errors</h4>
+
+  <div ng-repeat="err in ngDialogData.errors">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    {{err}}
+  </div>
+
+</div>
+
+<div ng-if="ngDialogData.warnings.length" class="alert alert-warning">
+  <h4>Warnings</h4>
+
+  <div ng-repeat="warn in ngDialogData.warnings">
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+    {{warn}}
+  </div>
+</div>
