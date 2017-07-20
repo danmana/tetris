@@ -7,6 +7,8 @@ var errorhandler = require('errorhandler');
 
 var program = require('commander');
 
+var endDate = new Date('17 Sep 2017 23:59:59');
+
 program
 .usage('--port 80 --dir ../tmp')
 .option('-p, --port <n>', 'server port number (default 8099)')
@@ -25,6 +27,7 @@ console.log('Using dir', baseDir);
 var scoreFile = baseDir + "/score.json";
 var mkdirp = require('mkdirp');
 var multer = require('multer');
+
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
     var directory = baseDir + "/" + req.body.username;
@@ -36,7 +39,22 @@ var storage = multer.diskStorage({
     cb(null, filename);
   }
 });
-var upload = multer({storage: storage})
+
+function isCompetitionOver() {
+  return new Date() > endDate;
+}
+
+var upload = multer({
+  storage: storage,
+  fileFilter: function(req, file, cb){
+    if (req.body.type === 'results' && isCompetitionOver()) {
+      cb(null, false);
+      return;
+    }
+    cb(null, true);
+
+  }
+});
 
 /* CSV parsing necesities */
 var csv = require('csv-parser')
@@ -114,6 +132,16 @@ var games = helper.loadGames('./app/games.txt');
 
 /* Results storage & evaluator */
 app.post('/upload-results', upload.single('results'), function(req, res, next) {
+
+  if (!req.file) {
+    res.send({
+      score: 0,
+      maxScoreBefore: 0,
+      errors: [isCompetitionOver() ? 'Competition is over. Solution submission is disabled.' : 'Error uploading file.'],
+      warnings: []
+    });
+    return;
+  }
 
   var username = req.body.username;
 

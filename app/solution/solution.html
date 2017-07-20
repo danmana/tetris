@@ -19,31 +19,38 @@
           
             		</div>
           		</div>
-          		<div class="form-group" ng-class="solution.responsesFile.$error.required ? 'has-error': ''">
-          		  <label class="col-lg-2 control-label">Results CSV</label>
+						 <div ng-if="competitionOver">
+							 <label class="col-lg-2 control-label">Results CSV</label>
+							 <div class="col-lg-10">
+								 <span class="help-block">The competition is over. Solution upload is disabled.</span>
+								 <br>
+							 </div>
+						 </div>
+						 <div ng-if="!competitionOver" class="form-group" ng-class="solution.responsesFile.$error.required ? 'has-error': ''">
+          		  <label class="col-lg-2 control-label">Submission CSV</label>
           		  <div class="col-lg-10">
-          			  <input type="file" ngf-select ng-model="responsesFile" name="responsesFile" accept="text/csv" required ngf-model-invalid="errorFile"/>
-                  <span class="help-block">Upload the results file as described in <a href="#!/intro">Intro</a>.</span>
+          			  <input type="file" ngf-select ng-model="files.responsesFile" name="responsesFile" accept="text/csv" required ngf-model-invalid="errorFile"/>
+                  <span class="help-block">Upload your submissionfile as described in <a href="#!/intro">Intro</a>.</span>
                   <br/>
-          			  <div class="progress" ng-show="responsesFile">
-        				    <div class="progress-bar progress-bar-success"  ng-bind="responsesFile.progress + '%'" style="width: {{responsesFile.progress}}%"></div>
+          			  <div class="progress" ng-show="files.responsesFile">
+        				    <div class="progress-bar progress-bar-success"  ng-bind="files.responsesFile.progress + '%'" style="width: {{responsesFile.progress}}%"></div>
         			    </div>
           		  </div>
           		</div>
           		<div class="form-group">
           		  <label class="col-lg-2 control-label">Solution description</label>
           		  <div class="col-lg-10">
-          			 <input type="file" ngf-select ng-model="solutionFile" name="solutionFile"/>
+          			 <input type="file" ngf-select ng-model="files.solutionFile" name="solutionFile"/>
                  <span class="help-block">Upload the solution description as requested in <a href="#!/intro">Intro</a>. It is not mandatory, but at least once it has to be sent.</span>
                  <br/>
-                 <div class="progress" ng-show="solutionFile">
-                    <div class="progress-bar progress-bar-info"  ng-bind="solutionFile.progress + '%'" style="width: {{solutionFile.progress}}%"></div>
+                 <div class="progress" ng-show="files.solutionFile">
+                    <div class="progress-bar progress-bar-info"  ng-bind="files.solutionFile.progress + '%'" style="width: {{solutionFile.progress}}%"></div>
                   </div>
           		  </div>
           		</div>
           		<div class="form-group">
                 <div class="col-lg-10 col-lg-offset-2">
-                    <button type="submit" class="btn btn-primary" ng-disabled="!solution.$valid" ng-click="uploadSolution(responsesFile, solutionFile)">Submit</button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="!solution.$valid" ng-click="uploadSolution(files.responsesFile, files.solutionFile)">Submit</button>
             	  </div>
           		</div>
           	  </fieldset>
