@@ -28,7 +28,8 @@ angular.module('tetrisbot.intro', ['ngRoute'])
   }
 
   var pieces = "LSTSITSLSTSITSLSTSITS";
-  var moves = Tetris.parseMoves("0:0;2:1;5:0;6:1;8:1;4:2;0:0;0:0;2:1;5:0;6:1;8:1;4:2;0:0;0:0;2:1;5:0;6:1;8:1;4:2;0:0");
+  var movesString = "0:0;2:1;5:0;6:1;8:1;4:2;0:0;0:0;2:1;5:0;6:1;8:1;4:2;0:0;0:0;2:1;5:0;6:1;8:1;4:2;0:0";
+  var moves = Tetris.parseMoves(movesString);
   var display = document.getElementById('live-demo');
   var t = new Tetris(pieces);
 
@@ -45,7 +46,7 @@ angular.module('tetrisbot.intro', ['ngRoute'])
     }
     display.innerHTML = t.toHtml();
     if (t.won || t.lost || nextMove === undefined) {
-      moves = Tetris.parseMoves("0:0;2:1;5:0;6:1;8:1;4:2;0:0");
+      moves = Tetris.parseMoves(movesString);
       t = new Tetris(pieces);
     }
   }, 500);
