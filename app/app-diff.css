@@ -3,6 +3,10 @@
     border: 0;
 }
 
+img.devoxx {
+    background: #241E35;
+}
+
 .steps .row {
     padding: 20px;
 }
@@ -28,5 +32,13 @@
 }
 
 .steps .panel-body {
-    min-height: 100px;
+}
+
+.steps .panel-body p {
+    height: 50px;
+}
+
+.steps .panel-body img {
+    height: 160px;
+    max-width: 100%;
 }

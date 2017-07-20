@@ -7,34 +7,11 @@ var solutions = ['game,moves'];
 var totalScore = 0;
 
 games.forEach(function(game, gameId) {
-  var moves = [];
-  var shapes = game.split('');
-
-  var t = new Tetris(game);
-
+  var moves = [], shapes = game.split('');
   shapes.forEach(function(shape) {
-
-    // TODO: implement your logic here and choose the best move
-    // You can use t.clone(), t.makeMove() and t.score to try out moves and see their score
-
-    // choose a random rotation between 0 and 3
-    var rot = Math.floor(Math.random() * 3);
-    // choose a random position between 0 and GRID_W
-    var x = Math.floor(Math.random() * (Tetris.GRID_W));
-
-
-    var move = x + ':' + rot;
-    moves.push(move);
+    moves.push(getBestMove(shape));
   });
-
-  moves = moves.join(';');
-
-  var score = helper.getScore(game, moves);
-  console.log('Game: ' + gameId + ' Score: ' + score);
-  totalScore += score;
-
-  var solution = gameId + ',' + moves;
-  solutions.push(solution);
+  solutions.push(gameId + ',' + moves);
 });
 
 
