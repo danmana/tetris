@@ -15,18 +15,7 @@ exports.getScore = function(pieces, moves) {
   return tetris.score;
 };
 
-exports.moveParser = function(val) {
-  var moves = [];
-  var moveStrings = val.split(';'), i, parts;
-  for (i = 0; i < moveStrings.length; i++) {
-    parts = moveStrings[i].split(',');
-    moves.push({
-      x: parseInt(parts[0]),
-      rot: parseInt(parts[1])
-    });
-  }
-  return moves;
-};
+exports.parseMoves = Tetris.parseMoves;
 
 exports.generateGame = function(pieces, length) {
   var game = [];

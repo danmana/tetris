@@ -45,10 +45,23 @@
         </section>
 
         <section>
+          <h3>Response Format</h3>
+        </section>
+
+        <h2>Contact</h2>
+
+        <section>
           <h3>Data</h3>
-          <a class="btn btn-info" href="games.txt" target="_blank">Download</a>
+          <a class="btn btn-info" href="games.txt" target="_blank">Games Input</a>
+          <a class="btn btn-info" href="sample_submission.csv" target="_blank">Sample Submission</a>
+
+          <h4>Games Input</h4>
           <p>The input file contains one game per line. Each character of a line represents a shape (one of
-            <b>IJLOSTZ</b>)</p>
+            <b>IJLOSTZ</b>) in the order they will come in the game.
+          </p>
+          <p>
+            Your goal is to place each piece on the Tetris grid and score the highest score possible.
+          </p>
           <p>The file will contain a total of 50 games with increasing difficulty.</p>
           <ul>
             <li><b>LEVEL 0</b> - 10 trivial games of length 30 using 1 or 2 different shapes</li>
@@ -57,13 +70,61 @@
             <li><b>LEVEL 3</b> - 10 hard games of length 1000 using all the 7 shapes</li>
             <li><b>LEVEL 4</b> - 10 extreme games of length 10000 using all the 7 shapes</li>
           </ul>
-        </section>
 
-        <section>
-          <h3>Response Format</h3>
-        </section>
+          Example:
+          <pre>
+OOOOO
+LSTSITS
+</pre>
 
-        <h2>Contact</h2>
+          <br>
+          <h4>Solution</h4>
+          <p>
+            The solution file is a csv with two columns: <b>game</b> and <b>moves</b>.
+          </p>
+
+          Example:
+          <pre>
+game,moves
+0,"0:0;2:0;4:0;6:0;8:0"
+1,"0:0;2:1;5:0;6:1;8:1;4:2;0:0"
+</pre>
+          <p>The <b>game</b> column contains the game id: from 0 to 49</p>
+          <p>The <b>moves</b> column contains your solution for a game.</p>
+
+          <p>
+            A complete solution should have <b>51 lines</b> (1 for the header and 1 for each of the 50 games from the input).
+            <br>
+            The first line should be the header: <b>game,moves</b>
+          </p>
+          <p>
+            The next 50 lines should each be a solution for one game (the order of the games does not matter).
+            <br>
+            A solution line has two comma separated values: the <b>game id</b> (from 0 to 49) and the <b>moves string</b>.
+            <br>
+            The csv values can be optionally enclosed in double quotes.
+          </p>
+
+          <p>
+            The moves string for a game should contain a move pair for each of the shapes in that game.
+            <br>
+            A move pair is represented as <b>&lt;column&gt;:&lt;rotation&gt;</b> and multiple moves are separated by semicolons.
+            <br>
+            The <b>column</b>
+          </p>
+          <br>
+          <pre>
+// games.txt
+OOOOO
+LSTSITS
+
+//solution.csv
+game,moves
+0,"0:0;2:0;4:0;6:0;8:0"
+1,"0:0;2:1;5:0;6:1;8:1;4:2;0:0"
+</pre>
+
+        </section>
       </div>
     </div>
   </div>

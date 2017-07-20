@@ -126,7 +126,7 @@ app.post('/upload-results', upload.single('results'), function(req, res, next) {
 
     var game = games[gameId];
     try {
-      score += helper.getScore(game, helper.moveParser(data.moves));
+      score += helper.getScore(game, helper.parseMoves(data.moves));
     } catch (e) {
       console.error('Error scoring game ' + gameId + ' for user ' + username + ' in file ' + fileLocation, e);
       errors.push('Error scoring game: ' + gameId);

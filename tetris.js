@@ -266,6 +266,28 @@
     });
   }
 
+
+  var MOVE_SEPARATOR = ';';
+  var MOVE_PART_SEPARATOR = ':';
+
+  /**
+   * Parse a moves string into an array of moves.
+   * @param val
+   * @returns {Array}
+   */
+  function parseMoves(val) {
+    var moves = [];
+    var moveStrings = val.split(MOVE_SEPARATOR), i, parts;
+    for (i = 0; i < moveStrings.length; i++) {
+      parts = moveStrings[i].split(MOVE_PART_SEPARATOR);
+      moves.push({
+        x: parseInt(parts[0]),
+        rot: parseInt(parts[1])
+      });
+    }
+    return moves;
+  }
+
   // Expose some of the static utility functions
 
   Tetris.SHAPE_NAMES = 'IJLOSTZ';
@@ -274,6 +296,7 @@
   Tetris.transpose = transpose;
   Tetris.gridToHTML = gridToHtml;
   Tetris.clone = clone;
+  Tetris.parseMoves = parseMoves;
 
   if (typeof module !== 'undefined' && typeof module.exports !== 'undefined')
     module.exports = Tetris;

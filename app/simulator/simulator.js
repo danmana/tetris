@@ -11,24 +11,21 @@ angular.module('tetrisbot.simulator', ['ngRoute'])
 
 .controller('SimulatorCtrl', ['$scope', function($scope) {
 
-    $scope.pieces = "OOOOOOOIIOO";
-    $scope.moves = "0,0;2,0;4,0;6,0;0,0;8,0;0,0;2,0;4,0;6,0;0,0;8,0";
-	var t, moves = [];
-	var display = document.getElementById('display');
+    $scope.pieces = "LSTSITS";
+    $scope.moves = "0:0;2:1;5:0;6:1;8:1;4:2;0:0";
+
+    var autoplay;
 
     $scope.play = function (){
-        t = new Tetris($scope.pieces); moves = [];
+        var t = new Tetris($scope.pieces);
+        var moves = Tetris.parseMoves($scope.moves);
+        var display = document.getElementById('display');
 
-        var moveStrings = $scope.moves.split(';'), i, parts;
-        for (i = 0; i < moveStrings.length; i++) {
-            parts = moveStrings[i].split(',');
-            moves.push({
-                x: parseInt(parts[0]),
-                rot: parseInt(parts[1])
-            });
-        } 
+        if (autoplay) {
+          clearInterval(autoplay);
+        }
 
-        var autoplay = setInterval(function () {
+        autoplay = setInterval(function () {
             var nextMove = moves.shift();
             if(nextMove) {
                 t.makeMove(nextMove.x, nextMove.rot);
@@ -37,7 +34,6 @@ angular.module('tetrisbot.simulator', ['ngRoute'])
             if (t.won || t.lost || nextMove === undefined) {
                 clearInterval(autoplay);
             }
-
-        }, 500); 
+        }, 500);
     };
 }]);
