@@ -3,9 +3,12 @@
 
     <div class="container container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">Tetris</a>
+        <span class="navbar-brand" >
+          <span class="glyphicon glyphicon-menu-hamburger visible-xs-inline-block" aria-hidden="true" ng-click="collapsed = !collapsed"></span>
+          <a href="#">Tetris</a>
+        </span>
       </div>
-      <div class="collapse navbar-collapse">
+      <div ng-class="{'collapse': collapsed, 'navbar-collapse':collapsed}">
         <ul class="nav navbar-nav">
           <li ng-class="active === 'intro' ? 'active' : ''"><a href="#!/intro">Tetris Challenge</a></li>
           <li ng-class="active === 'top' ? 'active' : ''"><a href="#!/challengers">View Top</a></li>

@@ -8,6 +8,7 @@ angular.module('tetrisbot.navbar', []).directive('navbar', [ function() {
         scope: {},
         templateUrl: "components/navbar.html",
         controller: ['$scope', '$location', function ($scope, $location) {
+ 					$scope.collapsed = true;
         	
         	var currentPath = $location.path();
         	if(currentPath.indexOf("intro") > -1) $scope.active="intro";
