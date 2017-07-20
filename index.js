@@ -84,10 +84,27 @@ app.post('/top-challengers', function(req, res) {
   var response = [];
   for (var i = 0; i < sortable.length; i++) {
     var entry = sortable[i];
-    response.push({email: entry[0], score: entry[1], attempts: entry[2]});
+    response.push({email: entry[0], score: entry[1], attempts: entry[2], inTheMoney: false});
   }
+
+  var topScores = getMaxTwoScores(response);
+  response.forEach(function(user) {
+    if (topScores.indexOf(user.score) !== -1) {
+      user.inTheMoney = true;
+    }
+  });
+
   res.json(response);
 });
+
+function getMaxTwoScores(users) {
+  var topTwo = users.slice(0, 2);
+  var scores = [];
+  topTwo.forEach(function(user) {
+    scores.push(user.score);
+  });
+  return scores;
+}
 
 /* Basic necesities for storing the data */
 mkdirp.sync(baseDir);
