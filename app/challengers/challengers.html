@@ -15,7 +15,10 @@
                 </thead>
                 <tbody>
                   <tr ng-class="{'success': entry.inTheMoney}" ng-repeat="entry in challengers">
-                    <td ng-bind="($index + 1)"></td>
+                    <td>
+                      <span ng-if="entry.inTheMoney" class="glyphicon glyphicon-flash"></span>
+                      <span ng-bind="($index + 1)"></span>
+                    </td>
                     <td ng-bind="entry.email"></td>
                     <td ng-bind="entry.score"></td>
                     <td ng-bind="entry.attempts"></td>
