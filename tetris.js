@@ -145,7 +145,7 @@
   /**
    * Clear all filled rows
    * @param grid
-   * @returns {number} the number of rows cleared
+   * @returns {number} the score from clearing rows
    */
   function clearRows(grid) {
     var i, j, cleared = 0, is_full, score = 0;
