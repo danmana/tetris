@@ -4,6 +4,11 @@ var fs = require('fs');
 exports.getScore = function(pieces, moves) {
   var tetris = new Tetris(pieces);
   var i, move;
+
+  if (typeof moves === 'string') {
+    moves = Tetris.parseMoves(moves);
+  }
+
   for (i = 0; i < moves.length; i++) {
     move = moves[i];
     tetris.makeMove(move.x, move.rot);
@@ -50,6 +55,6 @@ function permute(input) {
 /**
  * Load all games form the games.txt file
  */
-exports.loadGames = function() {
-  return fs.readFileSync('./app/games.txt').toString().split('\n');
+exports.loadGames = function(filePath) {
+  return fs.readFileSync(filePath).toString().split('\n');
 };

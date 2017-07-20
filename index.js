@@ -93,7 +93,7 @@ app.post('/top-challengers', function(req, res) {
 mkdirp.sync(baseDir);
 if (!fs.existsSync(scoreFile)) fs.writeFileSync(scoreFile, "{}");
 
-var games = helper.loadGames();
+var games = helper.loadGames('./app/games.txt');
 
 /* Results storage & evaluator */
 app.post('/upload-results', upload.single('results'), function(req, res, next) {

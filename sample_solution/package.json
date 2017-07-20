@@ -1,0 +1,12 @@
+{
+  "name": "sample_solution",
+  "version": "1.0.0",
+  "description": "This folder contains a solution skeleton that you can extend with your own algorithm.",
+  "main": "solution.js",
+  "scripts": {
+    "start": "node solution.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -292,6 +292,8 @@
 
   Tetris.SHAPE_NAMES = 'IJLOSTZ';
   Tetris.SHAPES = SHAPES;
+  Tetris.GRID_W = GRID_W;
+  Tetris.GRID_H = GRID_H;
   Tetris.rotate = rotate;
   Tetris.transpose = transpose;
   Tetris.gridToHTML = gridToHtml;
