@@ -15,7 +15,7 @@ games.forEach(function(game, gameId) {
   shapes.forEach(function(shape) {
 
     // TODO: implement your logic here and choose the best move
-    // You can use t.clone(), t.makeMove() and t.getScore() to try out moves and see their score
+    // You can use t.clone(), t.makeMove() and t.score to try out moves and see their score
 
     // choose a random rotation between 0 and 3
     var rot = Math.floor(Math.random() * 3);
