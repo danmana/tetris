@@ -13,7 +13,7 @@ Run the express js server using
 node index.js
 
 # prod
-node index.js --port 80 --dir /home/ubuntu/tmp
+nohup sudo nodejs index.js --port 80 --dir /home/ubuntu/tmp &
 ```
 
 ## Game generator
