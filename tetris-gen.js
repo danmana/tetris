@@ -72,6 +72,19 @@ if (!program.out) {
     games.push(helper.generateGame('IJLOSTZ', 10000));
     games.push(helper.generateGame('IJLOSTZ', 10000));
 
+
+    // LEVEL 5 - extreme games, true random
+    games.push(helper.generateGameTrueRandom('IJLOSTZ', 10000));
+    games.push(helper.generateGameTrueRandom('IJLOSTZ', 10000));
+    games.push(helper.generateGameTrueRandom('IJLOSTZ', 10000));
+    games.push(helper.generateGameTrueRandom('IJLOSTZ', 10000));
+    games.push(helper.generateGameTrueRandom('IJLOSTZ', 10000));
+    games.push(helper.generateGameTrueRandom('IJLOSTZ', 10000));
+    games.push(helper.generateGameTrueRandom('IJLOSTZ', 10000));
+    games.push(helper.generateGameTrueRandom('IJLOSTZ', 10000));
+    games.push(helper.generateGameTrueRandom('IJLOSTZ', 10000));
+    games.push(helper.generateGameTrueRandom('IJLOSTZ', 10000));
+
     fs.writeFile(program.out, games.join('\n'), function(err) {
         if (err) {
             return console.log(err);

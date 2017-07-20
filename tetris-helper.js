@@ -36,6 +36,16 @@ exports.generateGame = function(pieces, length) {
   return game.join('');
 };
 
+exports.generateGameTrueRandom = function(pieces, length) {
+  var game = [];
+
+  while (game.length < length) {
+    game.push(pieces[Math.floor(Math.random() * pieces.length)]);
+  }
+
+  return game.join('');
+};
+
 function permute(input) {
   var idx, swpIdx, tmp, perm;
   // clone the array

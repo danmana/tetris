@@ -18,7 +18,7 @@ games.forEach(function(game, gameId) {
     // You can use t.clone(), t.makeMove() and t.score to try out moves and see their score
 
     // choose a random rotation between 0 and 3
-    var rot = Math.floor(Math.random() * 3);
+    var rot = Math.floor(Math.random() * 4);
     // choose a random position between 0 and GRID_W
     var x = Math.floor(Math.random() * (Tetris.GRID_W));
 

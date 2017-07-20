@@ -24,7 +24,7 @@
                   <a href="#game-input">Get your input</a>
                 </div>
                 <div class="panel-body">
-                  <p>We prepared <a href="#game-input">50 games of Tetris</a> with increasing difficulty.</p>
+                  <p>We prepared <a href="#game-input">60 games of Tetris</a> with increasing difficulty.</p>
                   <img src="../images/tetris.png">
                 </div>
               </div>
@@ -61,7 +61,7 @@
           <h2>Contest</h2>
 
           <p>
-            You will be given a list of 50 Tetris games in increasing difficulty (from 10 shapes to 10.000 shapes).<br>
+            You will be given a list of 60 Tetris games in increasing difficulty (from 10 shapes to 10.000 shapes).<br>
             You will know in advance all the shapes in the game in the order they will come.<br>
             You will have to solve each game by specifying a move for each shape (the column where to place the shape and rotation to use).<br>
             <br>
@@ -168,13 +168,17 @@
           <p>
             Your goal is to place each piece on the Tetris grid and score the highest score possible.
           </p>
-          <p>The file will contain a total of 50 games with increasing difficulty.</p>
+          <p>The file will contain a total of 60 games with increasing difficulty.
+            <br>
+            Levels 0-4 use a <a href="https://tetris.wiki/Random_Generator">Tetris bag random generator</a>. Level 5 games use a true random generator.
+          </p>
           <ul>
             <li><b>LEVEL 0</b> - 10 trivial games of length 30 using 1 or 2 different shapes</li>
             <li><b>LEVEL 1</b> - 10 easy games of length 50 using 3 or 4 different shapes</li>
             <li><b>LEVEL 2</b> - 10 medium games of length 100 using all the 7 shapes</li>
             <li><b>LEVEL 3</b> - 10 hard games of length 1000 using all the 7 shapes</li>
             <li><b>LEVEL 4</b> - 10 extreme games of length 10000 using all the 7 shapes</li>
+            <li><b>LEVEL 5</b> - 10 extreme games of length 10000 using all the 7 shapes and a true random generator</li>
           </ul>
 
           Example:
@@ -195,18 +199,18 @@ game,moves
 0,"0:0;2:0;4:0;6:0;8:0"
 1,"0:0;2:1;5:0;6:1;8:1;4:2;0:0"
 </pre>
-          <p>The <b>game</b> column contains the game id: from 0 to 49</p>
+          <p>The <b>game</b> column contains the game id: from 0 to 59</p>
           <p>The <b>moves</b> column contains your solution for a game.</p>
 
           <p>
-            A complete solution should have <b>51 lines</b> (1 for the header and 1 for each of the 50 games from the input).
+            A complete solution should have <b>61 lines</b> (1 for the header and 1 for each of the 60 games from the input).
             <br>
             The first line should be the header: <b>game,moves</b>
           </p>
           <p>
-            The next 50 lines should each be a solution for one game (the order of the games does not matter).
+            The next 60 lines should each be a solution for one game (the order of the games does not matter).
             <br>
-            A solution line has two comma separated values: the <b>game id</b> (from 0 to 49) and the <b>moves string</b>.
+            A solution line has two comma separated values: the <b>game id</b> (from 0 to 59) and the <b>moves string</b>.
             <br>
             The csv values can be optionally enclosed in double quotes.
           </p>
