@@ -215,5 +215,7 @@ app.post('/upload-solution', upload.single('solution'), function(req, res, next)
   res.sendStatus(201);
 });
 
-app.listen(port);
-console.log("App listening on port " + port);
+app.listen(port, '0.0.0.0', function() {
+  console.log("App listening on port " + port);
+});
+
