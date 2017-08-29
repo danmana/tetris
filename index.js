@@ -14,13 +14,13 @@ program
 .option('-p, --port <n>', 'server port number (default 8099)')
 .option('-d, --dir <path>', 'directory where to store submissions (default ../tmp)')
 .option('-w, --winners <n>', 'number of winners (default 3)')
-.option('-e, --end <date>', 'end date (default 17 Sep 2017 23:59:59)')
+.option('-e, --end <date>', 'end date (default 2017-09-17T20:59:59.000Z)')
 .parse(process.argv);
 
 var port = program.port || 8099;
 var baseDir = program.dir || '../tmp';
 var winners = program.winners || 3;
-var endDate = program.end ? new Date(program.end) : new Date('17 Sep 2017 23:59:59');
+var endDate = program.end ? new Date(program.end) : new Date('2017-09-17T20:59:59.000Z');
 
 console.log('Using port', port);
 console.log('Using dir', baseDir);
