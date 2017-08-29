@@ -9,9 +9,17 @@ angular.module('tetrisbot.intro', ['ngRoute'])
   });
 }])
 
-.controller('IntroCtrl', ['$scope', function($scope) {
+.controller('IntroCtrl', ['$scope', '$http', function($scope, $http) {
 
   $scope.SHAPE_NAMES = Tetris.SHAPE_NAMES;
+
+  $http.get('/info')
+  .then(function(response) {
+    $scope.info = response.data;
+  }, function(error) {
+    console.log(error);
+  }
+  );
 
   function showShape(name) {
     var shape = Tetris.clone(Tetris.SHAPES[name]), i, html = '';

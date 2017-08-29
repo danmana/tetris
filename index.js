@@ -7,19 +7,25 @@ var errorhandler = require('errorhandler');
 
 var program = require('commander');
 
-var endDate = new Date('17 Sep 2017 23:59:59');
+
 
 program
 .usage('--port 80 --dir ../tmp')
 .option('-p, --port <n>', 'server port number (default 8099)')
 .option('-d, --dir <path>', 'directory where to store submissions (default ../tmp)')
+.option('-w, --winners <n>', 'number of winners (default 3)')
+.option('-e, --end <date>', 'end date (default 17 Sep 2017 23:59:59)')
 .parse(process.argv);
 
 var port = program.port || 8099;
 var baseDir = program.dir || '../tmp';
+var winners = program.winners || 3;
+var endDate = program.end ? new Date(program.end) : new Date('17 Sep 2017 23:59:59');
 
 console.log('Using port', port);
 console.log('Using dir', baseDir);
+console.log('Using winners', winners);
+console.log('Using endDate', endDate);
 
 
 /* Disk storage necesities */
@@ -89,39 +95,57 @@ app.get('/', function(req, res) {
 
 app.post('/top-challengers', function(req, res) {
   var scores = JSON.parse(fs.readFileSync(scoreFile).toString());
-  var sortable = [];
+  var response = [],i;
 
   for (var username in scores) {
-    sortable.push([username, Math.max.apply(null, scores[username]), scores[username].length]);
-  }
+    if (scores.hasOwnProperty(username)) {
+      var userScores = scores[username];
+      var best = getBestScore(userScores);
 
-  sortable.sort(function(a, b) {
-    return b[1] - a[1];
-  });
-
-  var response = [];
-  for (var i = 0; i < sortable.length; i++) {
-    var entry = sortable[i];
-    response.push({email: entry[0], score: entry[1], attempts: entry[2], inTheMoney: false});
-  }
-
-  var topScores = getMaxTwoScores(response);
-  response.forEach(function(user) {
-    if (topScores.indexOf(user.score) !== -1) {
-      user.inTheMoney = true;
+      response.push({
+        email: username,
+        score: best.value,
+        scoreDate: best.date,
+        attempts: userScores.length,
+        inTheMoney: false
+      });
     }
+  }
+
+  response.sort(function(a, b) {
+    // sort by score desc
+    var cmp = b.score - a.score;
+    // sort equal scores by date asc
+    if (cmp === 0) {
+      cmp = a.date - b.date;
+    }
+    return cmp;
   });
+
+  for (i = 0; i < winners && i < response.length; i++) {
+    response[i].inTheMoney = true;
+  }
 
   res.json(response);
 });
 
-function getMaxTwoScores(users) {
-  var topTwo = users.slice(0, 2);
-  var scores = [];
-  topTwo.forEach(function(user) {
-    scores.push(user.score);
-  });
-  return scores;
+function getBestScore(scores) {
+  var best = {
+    value: 0,
+    date: new Date()
+  }, i, s;
+
+  for (i=0;i<scores.length;i++) {
+    s = scores[i];
+    if (s.value > best.value) {
+      best = s;
+    } else if (s.value === best.value && s.date < best.date) {
+      // keep the first score
+      best = s;
+    }
+  }
+
+  return best;
 }
 
 /* Basic necesities for storing the data */
@@ -182,8 +206,11 @@ app.post('/upload-results', upload.single('results'), function(req, res, next) {
     // note: we should really make this atomic ...
     var scores = JSON.parse(fs.readFileSync(scoreFile).toString());
     var userScores = scores[username] || [];
-    var maxScoreBefore = Math.max.apply(null, userScores);
-    userScores.push(score);
+    var best = getBestScore(userScores);
+    userScores.push({
+      value: score,
+      date: new Date()
+    });
     scores[username] = userScores;
     fs.writeFileSync(scoreFile, JSON.stringify(scores));
 
@@ -202,7 +229,7 @@ app.post('/upload-results', upload.single('results'), function(req, res, next) {
     // send a response
     res.send({
       score: score,
-      maxScoreBefore: maxScoreBefore,
+      maxScoreBefore: best.value,
       errors: errors,
       warnings: warnings
     });
@@ -210,6 +237,12 @@ app.post('/upload-results', upload.single('results'), function(req, res, next) {
 
 });
 
+app.get('/info', function(req, res, next) {
+  res.send({
+    winners: winners,
+    endDate: endDate
+  });
+});
 
 app.post('/upload-solution', upload.single('solution'), function(req, res, next) {
   res.sendStatus(201);

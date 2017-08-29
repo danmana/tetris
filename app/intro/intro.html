@@ -48,7 +48,7 @@
                 <a href="/#!/challengers">Win your ticket</a>
               </div>
               <div class="panel-body">
-                <p><a href="/#!/challengers">Top two players</a> win a ticket to <a href="https://devoxx.be/">Devoxx</a>.</p>
+                <p><a href="/#!/challengers">Top {{info.winners}} players</a> until {{info.endDate | date : 'dd MMM'}} win a ticket to <a href="https://devoxx.be/">Devoxx</a>.</p>
                 <img class="devoxx" src="../images/be.png">
               </div>
             </div>
@@ -66,6 +66,8 @@
             You will have to solve each game by specifying a move for each shape (the column where to place the shape and rotation to use).<br>
             <br>
             Your goal is to score the highest score possible by taking advantage of the combo multipliers and planning your moves carefully.<br>
+            <br>
+            Competition end date is {{info.endDate | date : 'dd MMM yyyy HH:mm:ss'}}<br>
             <br>
             You can solve the game using any programming languages or tools you want. All you have to do is upload a csv with your moves.<br>
             The Tetris engine used for scoring is <a href="https://github.com/danmana/tetris/blob/master/tetris.js">provided only in js</a> (see <a href="https://github.com/danmana/tetris/blob/master/README.md">documentation</a>),

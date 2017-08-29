@@ -9,10 +9,17 @@ angular.module('tetrisbot.solution', ['ngRoute', 'ngFileUpload'])
   });
 }])
 
-.controller('SolutionCtrl', ['$scope', '$timeout', '$location', 'Upload', 'ngDialog', function($scope, $timeout, $location, Upload, ngDialog) {
+.controller('SolutionCtrl', ['$scope', '$timeout', '$location', 'Upload', 'ngDialog', '$http', function($scope, $timeout, $location, Upload, ngDialog, $http) {
 
-  var endDate = new Date('17 Sep 2017 23:59:59');
-  $scope.competitionOver = new Date() > endDate;
+  $scope.competitionOver = false;
+
+  $http.get('/info')
+  .then(function(response) {
+    $scope.info = response.data;
+    $scope.competitionOver = new Date() > new Date(response.data.endDate);
+  }, function(error) {
+    console.log(error);
+  });
 
   $scope.files = {};
 

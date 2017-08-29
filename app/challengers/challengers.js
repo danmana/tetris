@@ -12,6 +12,14 @@ angular.module('tetrisbot.challengers', ['ngRoute'])
 .controller('ChallengersCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.challengers = [];
 
+  $http.get('/info')
+  .then(function(response) {
+    $scope.info = response.data;
+  }, function(error) {
+    console.log(error);
+  }
+  );
+
 	$scope.getTop = function(){
 		$http.post('/top-challengers', {}, {})
 		     .then(
