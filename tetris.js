@@ -66,6 +66,8 @@
     clone.score = this.score;
     clone.lost = this.lost;
     clone.won = this.won;
+
+    return clone;
   };
 
   /**
