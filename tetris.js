@@ -57,17 +57,17 @@
    * Clone this instance of Tetris.
    */
   Tetris.prototype.clone = function() {
-    var clone = new Tetris();
+    var c = new Tetris();
 
-    clone.grid = clone(this.grid);
-    clone.nextShapes = this.nextShapes;
-    clone.shapeIndex = this.shapeIndex;
+    c.grid = clone(this.grid);
+    c.nextShapes = this.nextShapes;
+    c.shapeIndex = this.shapeIndex;
 
-    clone.score = this.score;
-    clone.lost = this.lost;
-    clone.won = this.won;
+    c.score = this.score;
+    c.lost = this.lost;
+    c.won = this.won;
 
-    return clone;
+    return c;
   };
 
   /**
