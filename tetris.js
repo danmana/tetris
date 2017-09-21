@@ -312,6 +312,9 @@
    * Clone any plain object or array.
    */
   function clone(obj) {
+    if (obj instanceof Tetris) {
+      return obj.clone();
+    }
     return JSON.parse(JSON.stringify(obj));
   }
 
