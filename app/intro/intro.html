@@ -227,6 +227,10 @@ game,moves
             The <b>rotation</b> represents the number of rotations to apply to the shape before placing it.<br>
             For example <b>2:1;</b> will rotate the shape once and place its top left corner on the column 2 of the grid.
           </p>
+          <p>
+            Note: to place pieces in the leftmost column, depending on the rotation you might need to specify a negative index. <br>
+            For example the grid for <b>"I"</b> rotated once starts with two empty columns, so you would need to put it at <b>"-2:1"</b> to place it at the leftmost position.
+          </p>
           <br>
           <pre>
 // games.txt
