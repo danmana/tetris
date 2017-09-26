@@ -77,7 +77,7 @@
   Tetris.prototype.toHtml = function() {
     var html = '<div class="tetris">';
 
-    html += '<h1>Score: ' + this.score;
+    html += '<h1>Score: ' + this.score + ' ';
 
     if (this.lost) {
       html += '<span class="lost">LOST!</span>';
@@ -86,6 +86,12 @@
     }
 
     html += '</h1>';
+
+    if (this.shapeIndex < this.nextShapes.length) {
+      html += '<div class="next-shape">Next:';
+      html += gridToHtml(SHAPES[this.nextShapes[this.shapeIndex]]);
+      html += '</div>';
+    }
 
     html += gridToHtml(this.grid);
 
