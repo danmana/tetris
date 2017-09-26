@@ -8,7 +8,8 @@ angular.module('tetrisbot', [
   'tetrisbot.intro',
   'tetrisbot.challengers',
   'tetrisbot.solution',
-  'tetrisbot.simulator'
+  'tetrisbot.simulator',
+  'tetrisbot.news'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
