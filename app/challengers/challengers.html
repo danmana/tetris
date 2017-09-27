@@ -17,10 +17,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-class="{'success': entry.inTheMoney}" ng-repeat="entry in challengers">
+                  <tr ng-class="{'success': entry.inTheMoney, 'excluded': entry.excluded}" ng-repeat="entry in challengers">
                     <td>
-                      <span ng-if="entry.inTheMoney" class="glyphicon glyphicon-flash"></span>
                       <span ng-bind="($index + 1)"></span>
+                      <span ng-if="entry.inTheMoney" class="glyphicon glyphicon-flash" title="Winner"></span>
+                      <span ng-if="entry.excluded" class="glyphicon glyphicon-user" title="Not eligible for prize"></span>
                     </td>
                     <td ng-bind="entry.email"></td>
                     <td ng-bind="entry.score"></td>

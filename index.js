@@ -95,7 +95,7 @@ app.get('/', function(req, res) {
 
 app.post('/top-challengers', function(req, res) {
   var scores = JSON.parse(fs.readFileSync(scoreFile).toString());
-  var response = [],i;
+  var response = [],i, markedWinners;
 
   for (var username in scores) {
     if (scores.hasOwnProperty(username)) {
@@ -107,7 +107,8 @@ app.post('/top-challengers', function(req, res) {
         score: best.value,
         scoreDate: best.date,
         attempts: userScores.length,
-        inTheMoney: false
+        inTheMoney: false,
+        excluded: false
       });
     }
   }
@@ -122,12 +123,23 @@ app.post('/top-challengers', function(req, res) {
     return cmp;
   });
 
-  for (i = 0; i < winners && i < response.length; i++) {
-    response[i].inTheMoney = true;
+  for (i = 0, markedWinners = 0; i < response.length; i++) {
+    if (isExcluded(response[i].email)) {
+      response[i].excluded = true;
+    } else if (markedWinners < winners) {
+      response[i].inTheMoney = true;
+      markedWinners++;
+    }
+
   }
 
   res.json(response);
 });
+
+function isExcluded(name) {
+  return ['dan.manastireanu', 'rares.barbantan', 'silvia.chirila'].indexOf(name) !== -1 ||
+  name.endsWith('.benchmark');
+}
 
 function getBestScore(scores) {
   var best = {
