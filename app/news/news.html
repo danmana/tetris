@@ -5,17 +5,47 @@
 			<div class="col-lg-12">
 				<h2>News & Announcements</h2>
 
-                <article>
-                    <h3>Simulator: Added next shape preview</h3>
-                    <h4>26 Sept 2017 22:37</h4>
-                    <p>Added a next shape preview in the <a href="/#!/simulator">simulator</a> to make it easier to understand what happens.</p>
-                </article>
+          <article class="panel panel-default">
+            <h3 class="panel-heading">
+              <span class="label label-info">
+                Helper.js
+                <i class="badge">27 Sept 22:37</i>
+              </span>
+              Trim games to remove extra \r on Windows
+            </h3>
+            <div class="panel-body">
+              <p>
+                On Windows when checking out the code from git some extra \r characters were inserted in games.txt which caused errors in makeMove (undefined:1).<br>
+                This fix in <a href="https://github.com/danmana/tetris/blob/master/tetris-helper.js#L69">tetris-helper.js</a> cleans up the games string.
+              </p>
+            </div>
+          </article>
 
-                <article>
-                    <h3>Tetris.js: Fixed clone method</h3>
-                    <h4>21 Sept 2017 18:00</h4>
-                    <p>Fixed a bug in <a href="https://github.com/danmana/tetris/blob/master/tetris.js#L59">tetris.js</a> which caused t.clone() to return undefined.</p>
-                </article>
+          <article class="panel panel-default">
+            <h3 class="panel-heading">
+              <span class="label label-info">
+                Simulator
+                <i class="badge">26 Sept 22:37</i>
+              </span>
+              Added next shape preview
+            </h3>
+            <div class="panel-body">
+              <p>Added a next shape preview in the <a href="/#!/simulator">simulator</a> to make it easier to understand what happens.</p>
+            </div>
+          </article>
+
+          <article class="panel panel-default">
+            <h3 class="panel-heading">
+              <span class="label label-info">
+                Tetris.js
+                <i class="badge">21 Sept 18:00</i>
+              </span>
+              Fixed clone method
+            </h3>
+            <div class="panel-body">
+              <p>Fixed a bug in <a href="https://github.com/danmana/tetris/blob/master/tetris.js#L59">tetris.js</a> which caused t.clone() to return undefined.</p>
+            </div>
+          </article>
 			</div>
 		</div>
 	</div>

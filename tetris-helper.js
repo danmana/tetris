@@ -66,5 +66,7 @@ function permute(input) {
  * Load all games form the games.txt file
  */
 exports.loadGames = function(filePath) {
-  return fs.readFileSync(filePath).toString().split('\n');
+  return fs.readFileSync(filePath).toString().trim().split('\n').map(function(game) {
+    return game.trim();
+  });
 };
