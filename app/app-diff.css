@@ -88,3 +88,12 @@ tr.excluded span.glyphicon.glyphicon-user:after {
     left: -5px;
     top: 5px;
 }
+
+
+.simulator-page .actions {
+    padding-top: 10px;
+}
+
+.simulator-page .actions button {
+    margin-right: 5px;
+}

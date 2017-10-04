@@ -51,8 +51,11 @@
     margin-right: 20px;
 }
 
-.tetris .next-shape {
+.tetris .next-shapes {
     position: absolute;
     left: 220px;
     top: 20px;
+}
+.tetris .next-shapes .next-shape {
+    margin-bottom: 20px;
 }
