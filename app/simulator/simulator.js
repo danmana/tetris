@@ -76,9 +76,13 @@ angular.module('tetrisbot.simulator', ['ngRoute'])
   $scope.jump = function() {
     var step = Number(prompt('Jump to step (min = ' + ($scope.t.shapeIndex + 1) + ', max = ' + $scope.t.nextShapes.length+')'));
     if (!isNaN(step) && step > $scope.t.shapeIndex && step <= $scope.t.nextShapes.length) {
-      while ($scope.t.shapeIndex < step) {
-        $scope.playOne();
+      while (!$scope.isOver() && $scope.t.shapeIndex < step) {
+        var nextMove = moves.shift();
+        if (nextMove) {
+          $scope.t.makeMove(nextMove.x, nextMove.rot);
+        }
       }
+      display.innerHTML = $scope.t.toHtml();
     }
 
 
