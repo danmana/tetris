@@ -49,6 +49,8 @@
     this.shapeIndex = 0;
 
     this.score = 0;
+    this.lines = [0,0,0,0,0];
+
     this.lost = false;
     this.won = false;
   }
@@ -60,10 +62,14 @@
     var c = new Tetris();
 
     c.grid = clone(this.grid);
+
     c.nextShapes = this.nextShapes;
     c.shapeIndex = this.shapeIndex;
 
+
     c.score = this.score;
+    c.lines = clone(this.lines);
+
     c.lost = this.lost;
     c.won = this.won;
 
@@ -144,7 +150,7 @@
     } else {
       this.score++;
       applyShape(this.grid, shape, x, y);
-      this.score += clearRows(this.grid);
+      this.score += clearRows(this);
 
       this.shapeIndex++;
       if (this.shapeIndex >= this.nextShapes.length) {
@@ -158,7 +164,8 @@
    * @param grid
    * @returns {number} the score from clearing rows
    */
-  function clearRows(grid) {
+  function clearRows(t) {
+    var grid = t.grid;
     var i, j, cleared = 0, is_full, score = 0;
     for (i = 0; i < GRID_H; i++) {
       is_full = true;
@@ -174,6 +181,8 @@
         grid.unshift(clone(EMPTY_ROW));
       }
     }
+
+    t.lines[cleared]++;
 
     if (cleared === 1) {
       score = 100;
