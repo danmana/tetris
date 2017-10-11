@@ -8,6 +8,25 @@
           <article class="panel panel-default">
             <h3 class="panel-heading">
               <span class="label label-info">
+                Tetris.py
+                <i class="badge">11 Oct 19:11</i>
+              </span>
+              Added python implementation of the tetris engine
+            </h3>
+            <div class="panel-body">
+              <p>
+                Added a python implementation of the tetris engine in <a href="https://github.com/danmana/tetris/blob/master/tetris.py">tetris.py</a>.<br>
+                Performance wise this is not optimized and performs <b>3x slower</b> than the js version.<br>
+                There is one major difference in how the positions are calculated: the tetris.py engine does not need negative offsets for positioning a shape.
+                The position is calculated based on the leftmost filled cell in each shape. A helper OFFSETS object is provided to help with conversions from python positions to values accepted by the tetris server.
+              </p>
+              <code>jsPos = pyPos + OFFSETS[shapeName][rot]</code>
+            </div>
+          </article>
+
+          <article class="panel panel-default">
+            <h3 class="panel-heading">
+              <span class="label label-info">
                 Tetris.js
                 <i class="badge">06 Oct 15:05</i>
               </span>
