@@ -34,7 +34,7 @@ class Tetris:
     def __init__(self, shapes):
         self.shapes = shapes
         self.shapeIndex = 0
-        self.grid = np.zeros((GRID_H, GRID_W))
+        self.grid = np.zeros((GRID_H, GRID_W), dtype=np.int32)
 
         self.score = 0
         self.lost = False
@@ -54,7 +54,7 @@ class Tetris:
         return c
 
     def makeMove(self, pos, rot):
-        shape = np.array(SHAPES[self.shapes[self.shapeIndex]])
+        shape = np.array(SHAPES[self.shapes[self.shapeIndex]], dtype=np.int32)
         shape = np.rot90(shape, -rot)
 
         x = self.getBoundedX(shape, pos)
@@ -93,7 +93,7 @@ class Tetris:
 
         n = len(cleared)
         self.grid = np.delete(self.grid, cleared, 0)
-        self.grid = np.concatenate((np.zeros((n, GRID_W)), self.grid), 0)
+        self.grid = np.concatenate((np.zeros((n, GRID_W), dtype=np.int32), self.grid), 0)
 
         score = [0, 100, 200, 400, 800][n]
         return score
